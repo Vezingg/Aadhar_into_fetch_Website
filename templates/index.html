@@ -60,9 +60,6 @@
 
                 reader.onload = (event) => {
                     const imageData = event.target.result;
-                    // You can send imageData to your backend for processing
-                    // Once processed, update the result fields with extracted data
-                    // For now, let's assume the data is already available
                     const aadhaarInfo = {
                         aadhaar_number: '1234 5678 9012',
                         birthdate: '01-01-1990',
@@ -87,8 +84,6 @@
 
                 reader.onload = (event) => {
                     const imageData = event.target.result;
-                    // Similar processing as the drop event
-                    // Update the result fields with extracted data
                 };
 
                 reader.readAsDataURL(file);
