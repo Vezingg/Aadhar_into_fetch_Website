@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhaar Information Extractor</title>
+    <style>
+        #drop-zone {
+            width: 300px;
+            height: 150px;
+            border: 2px dashed #ccc;
+            text-align: center;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="drop-zone">
+        <p>Drag & Drop JPG Photo Here or Click to Upload</p>
+        <input type="file" id="file-input" accept=".jpg, .jpeg" style="display: none;">
+    </div>
+    
+    <div id="result">
+        <h2>Aadhaar Information:</h2>
+        <p><strong>Aadhaar Number:</strong> <span id="aadhaar-number"></span></p>
+        <p><strong>Birthdate:</strong> <span id="birthdate"></span></p>
+        <p><strong>Enrollment Number:</strong> <span id="enrollment-number"></span></p>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const result = document.getElementById('result');
+        const aadhaarNumber = document.getElementById('aadhaar-number');
+        const birthdate = document.getElementById('birthdate');
+        const enrollmentNumber = document.getElementById('enrollment-number');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#2196F3';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#ccc';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/jpeg')) {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    const imageData = event.target.result;
+                    // You can send imageData to your backend for processing
+                    // Once processed, update the result fields with extracted data
+                    // For now, let's assume the data is already available
+                    const aadhaarInfo = {
+                        aadhaar_number: '1234 5678 9012',
+                        birthdate: '01-01-1990',
+                        enrollment_number: '1234/56789/01234'
+                    };
+
+                    aadhaarNumber.textContent = aadhaarInfo.aadhaar_number;
+                    birthdate.textContent = aadhaarInfo.birthdate;
+                    enrollmentNumber.textContent = aadhaarInfo.enrollment_number;
+
+                    result.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            if (file && file.type.startsWith('image/jpeg')) {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    const imageData = event.target.result;
+                    // Similar processing as the drop event
+                    // Update the result fields with extracted data
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
